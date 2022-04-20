@@ -25,7 +25,7 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "insert into account (email, user_name, encrypt_pw, is_enabled, verification_code) value (?1,?2,?3,?4,?5);", nativeQuery = true)
     void addNew(String userName, String password, Boolean isEnable, String verifiedCode, String email);
 
-    Account findAccountByVerificationCode(String veritiCode);
+    Account findAccountByVerificationCode(String verifyCode);
 
     @Modifying
     @Query(value = "insert into account (verification_code) value (?1);", nativeQuery = true)
@@ -45,4 +45,5 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
     @Modifying
     @Query(value = "update account set encrypt_pw =?1,verification_code=null where verification_code=?2 ",nativeQuery = true)
     void saveNewPassword(String password, String code);
+
 }
