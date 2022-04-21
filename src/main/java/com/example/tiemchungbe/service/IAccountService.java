@@ -17,6 +17,8 @@ public interface IAccountService {
 
     void addNew(String userName, String password, Boolean isEnable, String verifiedCode, String email) throws MessagingException, UnsupportedEncodingException;
 
+    void addNew(String username, String password, String email) throws MessagingException, UnsupportedEncodingException;
+
     Boolean findAccountByVerificationCode(String verifyCode);
 
     void addVerificationCode(String username) throws MessagingException, UnsupportedEncodingException;

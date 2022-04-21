@@ -18,7 +18,7 @@ public class AccountService implements IAccountService {
     @Autowired
     private IAccountRepository accountRepository;
     @Autowired
-    private JavaMailSender javaMailSender;
+    JavaMailSender javaMailSender;
 
     @Override
     public Account findAccountByUserName(String userName) {
@@ -44,7 +44,14 @@ public class AccountService implements IAccountService {
     public void addNew(String userName, String password, Boolean isEnable, String verifiedCode, String email) throws MessagingException, UnsupportedEncodingException {
         String randomCode = RandomString.make(64);
         accountRepository.addNew(userName, password, false, randomCode, email);
-        sendVerificationEmail(userName, randomCode, email);
+//        sendVerificationEmail(userName, randomCode, email);
+    }
+
+    @Override
+    public void addNew(String username, String password, String email) throws MessagingException, UnsupportedEncodingException {
+        String randomCode = RandomString.make(64);
+        accountRepository.addNew(username, password, false, randomCode, email);
+        sendVerificationEmail(username, randomCode, email);
     }
 
     private void sendVerificationEmail(String userName, String randomCode, String email) throws MessagingException, UnsupportedEncodingException {
@@ -112,7 +119,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public void addVerificationCode(String code, String username) {
-        accountRepository.addVerificationCode(code,username);
+        accountRepository.addVerificationCode(code, username);
     }
 
     @Override
